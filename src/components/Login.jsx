@@ -49,7 +49,7 @@ const Login =  () => {
           <button type="submit" className="w-full bg-[#D3D3D3] text-[#0B090A] p-2 rounded">Login</button>
         </form>
       </div>
-      <a href="signup" className="text-white bg-[#161A1D] p-3 rounded-lg text-xl mt-2">Create An Account</a>
+      <a href="signup" className="text-white bg-[#161A1D] p-3 rounded-lg text-xl mt-2">Sign Up</a>
 
     </div>)
 }

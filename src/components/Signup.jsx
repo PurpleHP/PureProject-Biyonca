@@ -55,7 +55,7 @@ const Signup =  () => {
           <button type="submit" className="w-full bg-[#D3D3D3] text-[#0B090A] p-2 rounded">Sign Up</button>
         </form>
       </div>
-      <a href="login" className="text-white mt-4 bg-[#161A1D] p-3 rounded-lg text-xl">Sign Up</a>
+      <a href="login" className="text-white mt-4 bg-[#161A1D] p-3 rounded-lg text-xl">Login</a>
 
     </div>
     )
