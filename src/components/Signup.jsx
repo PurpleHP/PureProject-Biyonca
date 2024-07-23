@@ -1,20 +1,21 @@
 const Signup =  () => {
 
-  async function registerUser(email, password){
+  async function registerUser(username, email, password){
     try{
-      const response = await fetch('', {
+      const response = await fetch('https://www.google.com/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          username,
           email,
           password,
         }),
       });
   
       if(!response.ok){
-        throw new Error('Login failed');
+        throw new Error('Sign Up failed');
       }
       const data = await response.json();
       console.log(data);
@@ -25,7 +26,7 @@ const Signup =  () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    const newName = e.target.ad.value + " " + e.target.soyad.value;
+    const newName = e.target.username.value;
     const newEmail = e.target.email.value;
     const newPassword = e.target.passw.value;
 
@@ -41,7 +42,7 @@ const Signup =  () => {
         <h2 className="text-[#D3D3D3] text-2xl mb-6">Sign Up</h2>
         <form onSubmit={handleRegister} >
           <div className="mb-4">
-              <label className="block text-[#D3D3D3] mb-2" htmlFor="firstName">Username</label>
+              <label className="block text-[#D3D3D3] mb-2" htmlFor="username">Username</label>
               <input type="text" id="firstName" className="w-full p-2 rounded bg-[#0B090A] text-[#D3D3D3]" />
           </div>
           <div className="mb-4">
