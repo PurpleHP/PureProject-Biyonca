@@ -40,7 +40,7 @@ const Login =  () => {
         <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label className="block text-[#D3D3D3] mb-2" htmlFor="username">Username</label>
-            <input type="email" id="email" className="w-full p-2 rounded bg-[#0B090A] text-[#D3D3D3]" />
+            <input type="text" id="email" className="w-full p-2 rounded bg-[#0B090A] text-[#D3D3D3]" />
           </div>
           <div className="mb-6">
             <label className="block text-[#D3D3D3] mb-2" htmlFor="password">Password</label>

@@ -28,7 +28,7 @@ const Signup =  () => {
     e.preventDefault();
     const newName = e.target.username.value;
     const newEmail = e.target.email.value;
-    const newPassword = e.target.passw.value;
+    const newPassword = e.target.password.value;
 
     // Directly use newName, newEmail, and newPassword here
     await registerUser(newName, newEmail, newPassword);
