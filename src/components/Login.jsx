@@ -33,7 +33,7 @@ const Login =  () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const newName = e.target.username.value;
-    const newPassword = e.target.passw.value;
+    const newPassword = e.target.password.value;
     
     //send post request to the server
     await loginUser(newName, newPassword);
