@@ -1,23 +1,30 @@
 const Login =  () => {
 
+  
+
+
   async function loginUser(username, password){
     try{
-      const response = await fetch('https://www.google.com/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Cookie", "JSESSIONID=A4C88B3FB6BD31D20CB3318D2C6EEFA2");
+
+      const raw = JSON.stringify({
+        "username": "adminUser",
+        "password": "password"
       });
-  
-      if(!response.ok){
-        throw new Error('Login failed');
-      }
-      const data = await response.json();
-      console.log(data);
+
+      const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+      };
+
+      fetch("http://localhost:8888/security/login", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
     } catch (error){
       console.error(error);
     }
@@ -40,7 +47,7 @@ const Login =  () => {
         <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label className="block text-[#D3D3D3] mb-2" htmlFor="username">Username</label>
-            <input type="text" id="email" className="w-full p-2 rounded bg-[#0B090A] text-[#D3D3D3]" />
+            <input type="email" id="email" className="w-full p-2 rounded bg-[#0B090A] text-[#D3D3D3]" />
           </div>
           <div className="mb-6">
             <label className="block text-[#D3D3D3] mb-2" htmlFor="password">Password</label>

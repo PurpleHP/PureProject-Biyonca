@@ -1,24 +1,31 @@
 const Signup =  () => {
 
-  async function registerUser(username, email, password){
+  async function registerUser(username, password){ //Authority -> USER
     try{
-      const response = await fetch('https://www.google.com/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username,
-          email,
-          password,
-        }),
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", "Bearer eyJraWQiOiJlMTMxOTMzOS0wNWY1LTRhZDItYTdlOS0zNGJhMGYxOTM3ZmEiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pblVzZXIiLCJhdWQiOiJtZXNzYWdpbmctY2xpZW50IiwibmJmIjoxNzIyMjYxNjMyLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwMDAiLCJleHAiOjE3MjIyNjUyMzIsImlhdCI6MTcyMjI2MTYzMiwianRpIjoiNmI0OGVmN2ItNDQ5Ny00NTM4LThkZTItZGEyZTJiYWZiZWRjIiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iXX0.onNV66RIHf7Gs15TWGsw2kOoHpasCW4Dl3wEVN3qKzxdotGz4JcGFMnr-TTiSPrM1BOm_wz8jr9yuU8XBwmESHePh5Q2svpwzU_UQgmEdLfWUXrJ5pCjLeULNXt-wWpSEiPQFM-Rn6eOD86p0_yasnrtulCyCrrUsNtBt8N9FnfFrKilour5RbzuuE993QoF68kakoJlNs0HZtNPmm16Dj-bcKgAbxMvTT6zJUWRPOE3yjOhiE6zW6JqpKZTpdI5VDNZzERv4lbWIUPAB-9G8I7YULeG93E29YQEkFzPkYvjq2KKnCMYXXcE_ba2HX5OtXkfuzgqOfUAO0a0qri8sA");
+      myHeaders.append("Cookie", "JSESSIONID=A4C88B3FB6BD31D20CB3318D2C6EEFA2");
+
+      const raw = JSON.stringify({
+        "username": username,
+        "password": password,
+        "authorities": [
+          "USER"
+        ]
       });
-  
-      if(!response.ok){
-        throw new Error('Sign Up failed');
-      }
-      const data = await response.json();
-      console.log(data);
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+      };
+
+      fetch("http://localhost:8888/security/register", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
     } catch (error){
       console.error(error);
     }
