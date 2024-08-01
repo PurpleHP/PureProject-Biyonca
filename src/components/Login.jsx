@@ -1,34 +1,31 @@
+import axios from "axios";
 const Login =  () => {
-
   
 
 
-  async function loginUser(username, password){
-    try{
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("Cookie", "JSESSIONID=A4C88B3FB6BD31D20CB3318D2C6EEFA2");
 
-      const raw = JSON.stringify({
-        "username": "adminUser",
-        "password": "password"
-      });
-
-      const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
+  async function loginUser(username, password) {
+    try {
+      const myHeaders = {
+        "Content-Type": "application/json",
       };
-
-      fetch("http://localhost:8888/security/login", requestOptions)
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.error(error));
-    } catch (error){
+  
+      const data = {
+        username: username,
+        password: password
+      };
+  
+      const response = await axios.get("http://localhost:8888/security/login", {
+        headers: myHeaders,
+        data: data
+      });
+  
+      console.log(response.data);
+    } catch (error) {
       console.error(error);
     }
   }
+  
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -47,7 +44,7 @@ const Login =  () => {
         <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label className="block text-[#D3D3D3] mb-2" htmlFor="username">Username</label>
-            <input type="email" id="email" className="w-full p-2 rounded bg-[#0B090A] text-[#D3D3D3]" />
+            <input type="text" id="username" className="w-full p-2 rounded bg-[#0B090A] text-[#D3D3D3]" />
           </div>
           <div className="mb-6">
             <label className="block text-[#D3D3D3] mb-2" htmlFor="password">Password</label>

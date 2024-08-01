@@ -4,6 +4,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Home from './components/Home'
 import AddItems from './components/AddItems'
+import FetchData from './components/FetchData'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/additems" element={<AddItems />} />
+          <Route path="/testData" element={<FetchData />} />
         </Routes>
       </div>
         
