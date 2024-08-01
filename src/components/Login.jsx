@@ -2,8 +2,6 @@ import axios from "axios";
 const Login =  () => {
   
 
-
-
   async function loginUser(username, password) {
     try {
       const myHeaders = {
@@ -15,12 +13,13 @@ const Login =  () => {
         password: password
       };
   
-      const response = await axios.get("http://localhost:8888/security/login", {
+      const response = await fetch("http://localhost:8888/security/login", {
+        method: 'POST',
         headers: myHeaders,
-        data: data
+        body: JSON.stringify(data)
       });
-  
-      console.log(response.data);
+      
+      const result = await response.json();
     } catch (error) {
       console.error(error);
     }
