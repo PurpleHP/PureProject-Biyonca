@@ -39,28 +39,37 @@ const FetchData = () => {
       .catch((error) => console.error(error));
   }
 
+  const addData = () => {
+    //goes to /addData
+    window.location.href = "/addData";
+  }
+
   return (
-    <div className="fixed top-0 bg-[#0B090A] flex flex-col w-screen h-screen justify-center items-center overflow-y-auto">
-      <button className="top-0 text-white border-2 rounded-lg p-4" onClick={fetchData}>Fetch Data</button>
-      <div className="text-white max-w-screen break-words">
-        {allTestInfo && allTestInfo.map((info, index) => (
-          <div key={index} className="p-5 m-5 border border-white rounded">
-            <p>ID: {info.id}</p>
-            <p>Name: {info.name}</p>
-            <p>Created: {info.created}</p>
-            <p>Test Number: {info.testNum}</p>
-            <p>Owner Name: {info.ownerName}</p>
-            <p>Owner Email: {info.ownerEmail}</p>
-            <p>Location Name: {info.locationName}</p>
-            <p>Latitude: {info.locationLatitude}</p>
-            <p>Longitude: {info.locationLongitude}</p>
-            <p>Last Crop Type: {info.lastCropType}</p>
-            <p>Current Crop Type: {info.currentCropType}</p>
-            <p>Next Crop Type: {info.nextCropType}</p>
-          </div>
-        ))}
+    <div className="mt-5 bg-[#F3F4F6] flex flex-col w-full w-screen-lg justify-center items-center overflow-y-auto">
+      <div className='flex flex-row'>
+      <button className="top-0 m-2 text-white bg-[#10B981] rounded-lg p-4 hover:bg-[#059669]" onClick={fetchData}>Fetch Data</button>
+      <button className="top-0 m-2 text-white bg-[#F59E0B] rounded-lg p-4 hover:bg-[#D97706]" onClick={addData}>Add Data</button>      </div>
+
+
+          <div className="text-[#1E3A8A] max-w-screen break-words">
+          {allTestInfo && allTestInfo.map((info, index) => (
+            <div key={index} className="p-5 m-5 border border-[#1E3A8A] rounded bg-white">
+              <p>ID: {info.id}</p>
+              <p>Name: {info.name}</p>
+              <p>Created: {info.created}</p>
+              <p>Test Number: {info.testNum}</p>
+              <p>Owner Name: {info.ownerName}</p>
+              <p>Owner Email: {info.ownerEmail}</p>
+              <p>Location Name: {info.locationName}</p>
+              <p>Latitude: {info.locationLatitude}</p>
+              <p>Longitude: {info.locationLongitude}</p>
+              <p>Last Crop Type: {info.lastCropType}</p>
+              <p>Current Crop Type: {info.currentCropType}</p>
+              <p>Next Crop Type: {info.nextCropType}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
   );
 }
 
