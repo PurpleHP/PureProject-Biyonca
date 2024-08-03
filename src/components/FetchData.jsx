@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import cookieExpired from './CookieCheck';
 
 const FetchData = () => {
   const [allTestInfo, setAllTestInfo] = useState(null);
+  const [notExpired, setNotExpired] = useState(false);
 
   const fetchData = () => {
     const token = localStorage.getItem("token");
@@ -43,6 +45,40 @@ const FetchData = () => {
     //goes to /addData
     window.location.href = "/addData";
   }
+
+  setInterval(() => {
+    const {notExpired} = cookieExpired();
+    setNotExpired(notExpired);
+  } , 300000); //5 dakikada bir kontrol et
+
+  useEffect(async () => {
+    if(!notExpired){
+      try {
+        const myHeaders = {
+          "Content-Type": "application/json",
+        };
+  
+        const data = {
+          username: localStorage.getItem("username"),
+          password: localStorage.getItem("password")
+        };
+  
+        const response = await fetch("http://localhost:8888/security/login", {
+          method: 'POST',
+          headers: myHeaders,
+          body: JSON.stringify(data)
+        });
+  
+        const result = await response.json();
+        const expires = new Date(Date.now() + 3000 * 1000).toUTCString(); //cookie expires in 50 minutes
+        localStorage.setItem("token", result.access_token);
+        localStorage.setItem("tokenExpiration", expires);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+  , [notExpired]);
 
   return (
     <div className="mt-5 bg-[#F3F4F6] flex flex-col w-full w-screen-lg justify-center items-center overflow-y-auto">

@@ -24,7 +24,13 @@ const Signup =  () => {
       fetch("http://localhost:8888/security/register", requestOptions)
         .then((response) => response.json())
         .then((result) => {
+          const expires = new Date(Date.now() + 3000 * 1000).toUTCString(); //cookie expires in 50 minutes
+          console.log(expires);
           localStorage.setItem("token", result.access_token);
+          localStorage.setItem("tokenExpiration", expires);
+          localStorage.setItem("username", username);
+          localStorage.setItem("password,", password);
+          //document.cookie = `token=${result.access_token}; path=/; expires=${expires}; secure; HttpOnly; SameSite=Strict`;
           window.location.href = "/testData";
         })
         .catch((error) => {
@@ -36,6 +42,8 @@ const Signup =  () => {
       console.error(error);
     }
   }
+
+
 
   const handleRegister = async (e) => {
     e.preventDefault();

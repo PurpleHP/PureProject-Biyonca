@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CookieCheck from './CookieCheck';
 
 const FetchData = () => {
   const [formData, setFormData] = useState({
@@ -65,6 +66,7 @@ const FetchData = () => {
       });
     }
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
