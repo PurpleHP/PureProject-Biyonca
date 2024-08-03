@@ -9,6 +9,8 @@ import AddData from './components/AddData'
 
 function App() {
 
+  //          <Route path="/addData" element={<AddData />} />
+
   return (
     <>
       <div>
@@ -16,9 +18,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/additems" element={<AddItems />} />
           <Route path="/fetchData" element={<FetchData />} />
-          <Route path="/addData" element={<AddData />} />
         </Routes>
       </div>
         

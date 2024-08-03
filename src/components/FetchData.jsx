@@ -3,7 +3,7 @@ import cookieExpired from './CookieCheck';
 
 const FetchData = () => {
   const [allTestInfo, setAllTestInfo] = useState(null);
-  const [notExpired, setNotExpired] = useState(false);
+  const [notExpired, setNotExpired] = useState(true);
 
   const fetchData = () => {
     const token = localStorage.getItem("token");
@@ -51,61 +51,66 @@ const FetchData = () => {
     setNotExpired(notExpired);
   } , 300000); //5 dakikada bir kontrol et
 
-  useEffect(async () => {
-    if(!notExpired){
-      try {
-        const myHeaders = {
-          "Content-Type": "application/json",
-        };
-  
-        const data = {
-          username: localStorage.getItem("username"),
-          password: localStorage.getItem("password")
-        };
-  
-        const response = await fetch("http://localhost:8888/security/login", {
-          method: 'POST',
-          headers: myHeaders,
-          body: JSON.stringify(data)
-        });
-  
-        const result = await response.json();
-        const expires = new Date(Date.now() + 3000 * 1000).toUTCString(); //cookie expires in 50 minutes
-        localStorage.setItem("token", result.access_token);
-        localStorage.setItem("tokenExpiration", expires);
-      } catch (error) {
-        console.error(error);
+  useEffect( () => {
+    async function checkCookieExpiration() {
+      if(!notExpired){
+        try {
+          const myHeaders = {
+            "Content-Type": "application/json",
+          };
+    
+          const data = {
+            username: localStorage.getItem("username"),
+            password: localStorage.getItem("password")
+          };
+    
+          const response = await fetch("http://localhost:8888/security/login", {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify(data)
+          });
+    
+          const result = await response.json();
+          const expires = new Date(Date.now() + 5 * 1000).toUTCString(); //cookie expires in 50 minutes
+          localStorage.setItem("token", result.access_token);
+          localStorage.setItem("tokenExpiration", expires);
+        } catch (error) {
+          console.error(error);
+        }
       }
     }
+    checkCookieExpiration();
+
   }
   , [notExpired]);
 
   return (
-    <div className="mt-5 bg-[#F3F4F6] flex flex-col w-full w-screen-lg justify-center items-center overflow-y-auto">
-      <div className='flex flex-row'>
-      <button className="top-0 m-2 text-white bg-[#10B981] rounded-lg p-4 hover:bg-[#059669]" onClick={fetchData}>Fetch Data</button>
-      <button className="top-0 m-2 text-white bg-[#F59E0B] rounded-lg p-4 hover:bg-[#D97706]" onClick={addData}>Add Data</button>      </div>
 
-
-          <div className="text-[#1E3A8A] max-w-screen break-words">
-          {allTestInfo && allTestInfo.map((info, index) => (
-            <div key={index} className="p-5 m-5 border border-[#1E3A8A] rounded bg-white">
-              <p>ID: {info.id}</p>
-              <p>Name: {info.name}</p>
-              <p>Created: {info.created}</p>
-              <p>Test Number: {info.testNum}</p>
-              <p>Owner Name: {info.ownerName}</p>
-              <p>Owner Email: {info.ownerEmail}</p>
-              <p>Location Name: {info.locationName}</p>
-              <p>Latitude: {info.locationLatitude}</p>
-              <p>Longitude: {info.locationLongitude}</p>
-              <p>Last Crop Type: {info.lastCropType}</p>
-              <p>Current Crop Type: {info.currentCropType}</p>
-              <p>Next Crop Type: {info.nextCropType}</p>
-            </div>
-          ))}
-        </div>
+      <div className="bg-[#222831] min-h-screen flex flex-col w-full w-screen-lg justify-start items-center overflow-y-auto">
+      <div className='bg-[#222831] flex m-5 flex-row top-0 '>
+        <button className="top-0 m-2 text-[#EEEEEE] bg-[#76ABAE] rounded-lg p-4 hover:bg-[#5A8A8C] hover:scale-105 transition-transform duration-300" onClick={fetchData}>Fetch Data</button>
       </div>
+
+      <div className="text-[#EEEEEE] max-w-screen break-words bg-[#222831]">
+        {allTestInfo && allTestInfo.map((info, index) => (
+          <div key={index} className="p-5 m-5 border rounded bg-[#31363F]">
+            <p>ID: {info.id}</p>
+            <p>Name: {info.name}</p>
+            <p>Created: {info.created}</p>
+            <p>Test Number: {info.testNum}</p>
+            <p>Owner Name: {info.ownerName}</p>
+            <p>Owner Email: {info.ownerEmail}</p>
+            <p>Location Name: {info.locationName}</p>
+            <p>Latitude: {info.locationLatitude}</p>
+            <p>Longitude: {info.locationLongitude}</p>
+            <p>Last Crop Type: {info.lastCropType}</p>
+            <p>Current Crop Type: {info.currentCropType}</p>
+            <p>Next Crop Type: {info.nextCropType}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+    
   );
 }
 

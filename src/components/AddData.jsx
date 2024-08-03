@@ -103,70 +103,69 @@ const FetchData = () => {
   };
 
   return (
-    <div className='bg-[#F3F4F6] min-h-screen flex justify-center items-center overflow-y-auto p-4'>
-      <div className="mt-5 bg-[#F3F4F6] flex flex-col w-full max-w-screen-lg justify-center items-center overflow-y-auto">
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-full">
-          <h2 className="text-2xl mb-4">Fill in the Information</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block mb-2">Name</label>
-              <input type="text" name="name" value={formData.name} onChange={handleChange} className="w-full p-2 border rounded" />
-            </div>
-            <div>
-              <label className="block mb-2">Result</label>
-              <input type="text" name="result" value={formData.result} onChange={handleChange} className="w-full p-2 border rounded" />
-            </div>
-            <div>
-              <label className="block mb-2">Test Number</label>
-              <input type="number" name="testNum" value={formData.testNum} onChange={handleChange} className="w-full p-2 border rounded" />
-            </div>
-            <div>
-              <label className="block mb-2">Owner Name</label>
-              <input type="text" name="owner.name" value={formData.owner.name} onChange={handleChange} className="w-full p-2 border rounded" />
-            </div>
-            <div>
-              <label className="block mb-2">Owner Username</label>
-              <input type="text" name="owner.username" value={formData.owner.username} onChange={handleChange} className="w-full p-2 border rounded" />
-            </div>
-            <div>
-              <label className="block mb-2">Owner Email</label>
-              <input type="email" name="owner.email" value={formData.owner.email} onChange={handleChange} className="w-full p-2 border rounded" />
-            </div>
-            <div>
-              <label className="block mb-2">Owner Password</label>
-              <input type="password" name="owner.password" value={formData.owner.password} onChange={handleChange} className="w-full p-2 border rounded" />
-            </div>
-            <div>
-              <label className="block mb-2">Location Name</label>
-              <input type="text" name="location.name" value={formData.location.name} onChange={handleChange} className="w-full p-2 border rounded" />
-            </div>
-            <div>
-              <label className="block mb-2">Latitude</label>
-              <input type="number" name="location.latitude" value={formData.location.latitude} onChange={handleChange} className="w-full p-2 border rounded" />
-            </div>
-            <div>
-              <label className="block mb-2">Longitude</label>
-              <input type="number" name="location.longitude" value={formData.location.longitude} onChange={handleChange} className="w-full p-2 border rounded" />
-            </div>
-            <div>
-              <label className="block mb-2">Last Crop Type</label>
-              <input type="text" name="location.lastCropType" value={formData.location.lastCropType} onChange={handleChange} className="w-full p-2 border rounded" />
-            </div>
-            <div>
-              <label className="block mb-2">Current Crop Type</label>
-              <input type="text" name="location.currentCropType" value={formData.location.currentCropType} onChange={handleChange} className="w-full p-2 border rounded" />
-            </div>
-            <div>
-              <label className="block mb-2">Next Crop Type</label>
-              <input type="text" name="location.nextCropType" value={formData.location.nextCropType} onChange={handleChange} className="w-full p-2 border rounded" />
-            </div>
-          </div>
-          <button type="submit" className="mt-4 text-white bg-[#F59E0B] rounded-lg p-4 hover:bg-[#D97706]">Submit</button>
-          <button className="top-0 m-2 text-white bg-[#10B981] rounded-lg p-4 hover:bg-[#059669]" onClick={() => window.location.href="/fetchData"}>View All Data</button>
-
-        </form>
+    <div className='bg-[#222831] min-h-screen flex justify-center items-center overflow-y-auto p-4'>
+  <div className="mt-5 bg-[#222831] flex flex-col w-full max-w-screen-lg justify-center items-center overflow-y-auto">
+    <form onSubmit={handleSubmit} className="bg-[#31363F] p-6 rounded-lg shadow-md w-full">
+      <h2 className="text-2xl mb-4 text-[#EEEEEE]">Fill in the Information</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block mb-2 text-[#EEEEEE]">Name</label>
+          <input type="text" name="name" value={formData.name} onChange={handleChange} className="w-full p-2  rounded bg-[#222831] text-[#EEEEEE]" />
+        </div>
+        <div>
+          <label className="block mb-2 text-[#EEEEEE]">Result</label>
+          <input type="text" name="result" value={formData.result} onChange={handleChange} className="w-full p-2  rounded bg-[#222831] text-[#EEEEEE]" />
+        </div>
+        <div>
+          <label className="block mb-2 text-[#EEEEEE]">Test Number</label>
+          <input type="number" name="testNum" value={formData.testNum} onChange={handleChange} className="w-full p-2  rounded bg-[#222831] text-[#EEEEEE]" />
+        </div>
+        <div>
+          <label className="block mb-2 text-[#EEEEEE]">Owner Name</label>
+          <input type="text" name="owner.name" value={formData.owner.name} onChange={handleChange} className="w-full p-2  rounded bg-[#222831] text-[#EEEEEE]" />
+        </div>
+        <div>
+          <label className="block mb-2 text-[#EEEEEE]">Owner Username</label>
+          <input type="text" name="owner.username" value={formData.owner.username} onChange={handleChange} className="w-full p-2  rounded bg-[#222831] text-[#EEEEEE]" />
+        </div>
+        <div>
+          <label className="block mb-2 text-[#EEEEEE]">Owner Email</label>
+          <input type="email" name="owner.email" value={formData.owner.email} onChange={handleChange} className="w-full p-2  rounded bg-[#222831] text-[#EEEEEE]" />
+        </div>
+        <div>
+          <label className="block mb-2 text-[#EEEEEE]">Owner Password</label>
+          <input type="password" name="owner.password" value={formData.owner.password} onChange={handleChange} className="w-full p-2  rounded bg-[#222831] text-[#EEEEEE]" />
+        </div>
+        <div>
+          <label className="block mb-2 text-[#EEEEEE]">Location Name</label>
+          <input type="text" name="location.name" value={formData.location.name} onChange={handleChange} className="w-full p-2  rounded bg-[#222831] text-[#EEEEEE]" />
+        </div>
+        <div>
+          <label className="block mb-2 text-[#EEEEEE]">Latitude</label>
+          <input type="number" name="location.latitude" value={formData.location.latitude} onChange={handleChange} className="w-full p-2  rounded bg-[#222831] text-[#EEEEEE]" />
+        </div>
+        <div>
+          <label className="block mb-2 text-[#EEEEEE]">Longitude</label>
+          <input type="number" name="location.longitude" value={formData.location.longitude} onChange={handleChange} className="w-full p-2  rounded bg-[#222831] text-[#EEEEEE]" />
+        </div>
+        <div>
+          <label className="block mb-2 text-[#EEEEEE]">Last Crop Type</label>
+          <input type="text" name="location.lastCropType" value={formData.location.lastCropType} onChange={handleChange} className="w-full p-2  rounded bg-[#222831] text-[#EEEEEE]" />
+        </div>
+        <div>
+          <label className="block mb-2 text-[#EEEEEE]">Current Crop Type</label>
+          <input type="text" name="location.currentCropType" value={formData.location.currentCropType} onChange={handleChange} className="w-full p-2  rounded bg-[#222831] text-[#EEEEEE]" />
+        </div>
+        <div>
+          <label className="block mb-2 text-[#EEEEEE]">Next Crop Type</label>
+          <input type="text" name="location.nextCropType" value={formData.location.nextCropType} onChange={handleChange} className="w-full p-2  rounded bg-[#222831] text-[#EEEEEE]" />
+        </div>
       </div>
-    </div>
+      <button type="submit" className="mt-4 mr-2 text-[#EEEEEE] bg-[#76ABAE] rounded-lg p-4 hover:bg-[#5A8A8C] hover:scale-105 transition-transform duration-300">Submit</button>
+      <button className="mt-4 ml-2 text-[#EEEEEE] bg-[#76ABAE] rounded-lg p-4 hover:bg-[#5A8A8C] hover:scale-105 transition-transform duration-300" onClick={() => window.location.href='/fetchData'}>View All Data</button>
+    </form>
+  </div>
+</div>
   );
 }
 
