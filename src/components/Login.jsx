@@ -20,7 +20,6 @@ const Login = () => {
 
       const result = await response.json();
       const expires = new Date(Date.now() + 3000 * 1000).toUTCString(); //cookie expires in 50 minutes
-      console.log(expires);
       localStorage.setItem("token", result.access_token);
       localStorage.setItem("tokenExpiration", expires);
       window.location.href = "/fetchData"

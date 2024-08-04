@@ -94,7 +94,6 @@ const FetchData = () => {
         throw new Error('Network response was not ok');
       }
       const result = await response.json();
-      console.log('Success:', result);
       alert("Data added successfully");
 
     } catch (error) {

@@ -36,15 +36,10 @@ const FetchData = () => {
           nextCropType: info.location.nextCropType
         }));
         setAllTestInfo(crucialInfo);
-        console.log(crucialInfo);
       })
       .catch((error) => console.error(error));
   }
 
-  const addData = () => {
-    //goes to /addData
-    window.location.href = "/addData";
-  }
 
   setInterval(() => {
     const {notExpired} = cookieExpired();
