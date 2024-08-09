@@ -1,5 +1,8 @@
 const Signup =  () => {
 
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+
   async function registerUser(username, password){ //Authority -> USER
     try{
       const myHeaders = new Headers();
@@ -28,7 +31,7 @@ const Signup =  () => {
           localStorage.setItem("token", result.access_token);
           localStorage.setItem("tokenExpiration", expires);
           localStorage.setItem("username", username);
-          localStorage.setItem("password,", password);
+          localStorage.setItem("password", password);
           window.location.href = "/fetchData";
         })
         .catch((error) => {
@@ -48,10 +51,16 @@ const Signup =  () => {
     const realUsername = e.target.username.value;
     const newPassword = e.target.password.value;
 
+    if (!emailRegex.test(realUsername)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
     await registerUser( realUsername, newPassword);
   }
 
   
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#222831]">

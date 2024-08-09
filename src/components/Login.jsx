@@ -19,11 +19,11 @@ const Login = () => {
       });
 
       const result = await response.json();
-      const expires = new Date(Date.now() + 3000 * 1000).toUTCString(); //cookie expires in 50 minutes
+      const expires = new Date(Date.now().getTime() + 5000 * 60 * 1000).toUTCString(); // token expires in 50 minutes
       localStorage.setItem("token", result.access_token);
       localStorage.setItem("tokenExpiration", expires);
       localStorage.setItem("username", username);
-      localStorage.setItem("password,", password);
+      localStorage.setItem("password", password);
       window.location.href = "/fetchData"
     } catch (error) {
       console.error(error);

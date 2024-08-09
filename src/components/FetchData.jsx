@@ -22,18 +22,11 @@ const FetchData = () => {
       .then((response) => response.json())
       .then((result) => {
         const crucialInfo = result.map(info => ({
-          id: info.id,
           name: info.name,
           created: info.created,
           testNum: info.testNum,
-          ownerName: info.owner.name,
-          ownerEmail: info.owner.email,
-          locationName: info.location.name,
-          locationLatitude: info.location.latitude,
-          locationLongitude: info.location.longitude,
-          lastCropType: info.location.lastCropType,
-          currentCropType: info.location.currentCropType,
-          nextCropType: info.location.nextCropType
+          result: info.result,
+
         }));
         setAllTestInfo(crucialInfo);
       })
@@ -89,18 +82,10 @@ const FetchData = () => {
       <div className="text-[#EEEEEE] max-w-screen break-words bg-[#222831]">
         {allTestInfo && allTestInfo.map((info, index) => (
           <div key={index} className="p-5 m-5 border rounded bg-[#31363F]">
-            <p>ID: {info.id}</p>
             <p>Name: {info.name}</p>
-            <p>Created: {info.created}</p>
+            <p>Date: {info.created}</p>
             <p>Test Number: {info.testNum}</p>
-            <p>Owner Name: {info.ownerName}</p>
-            <p>Owner Email: {info.ownerEmail}</p>
-            <p>Location Name: {info.locationName}</p>
-            <p>Latitude: {info.locationLatitude}</p>
-            <p>Longitude: {info.locationLongitude}</p>
-            <p>Last Crop Type: {info.lastCropType}</p>
-            <p>Current Crop Type: {info.currentCropType}</p>
-            <p>Next Crop Type: {info.nextCropType}</p>
+            <p>Test Result: {info.result}</p>
           </div>
         ))}
       </div>
