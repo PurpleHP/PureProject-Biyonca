@@ -22,6 +22,8 @@ const Login = () => {
       const expires = new Date(Date.now() + 3000 * 1000).toUTCString(); //cookie expires in 50 minutes
       localStorage.setItem("token", result.access_token);
       localStorage.setItem("tokenExpiration", expires);
+      localStorage.setItem("username", username);
+      localStorage.setItem("password,", password);
       window.location.href = "/fetchData"
     } catch (error) {
       console.error(error);
@@ -41,8 +43,8 @@ const Login = () => {
         <h2 className="text-[#EEEEEE] text-2xl mb-6">Login</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label className="block text-[#EEEEEE] mb-2" htmlFor="username">Username</label>
-            <input required type="text" id="username" className="w-full p-2 rounded bg-[#222831] text-[#EEEEEE]" />
+            <label className="block text-[#EEEEEE] mb-2" htmlFor="username">Username (Email)</label>
+            <input required type="email" id="username" className="w-full p-2 rounded bg-[#222831] text-[#EEEEEE]" />
           </div>
           <div className="mb-6">
             <label className="block text-[#EEEEEE] mb-2" htmlFor="password">Password</label>

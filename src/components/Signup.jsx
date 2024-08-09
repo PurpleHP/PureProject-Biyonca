@@ -1,12 +1,11 @@
 const Signup =  () => {
 
-  async function registerUser(realName ,username, password){ //Authority -> USER
+  async function registerUser(username, password){ //Authority -> USER
     try{
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
       const raw = JSON.stringify({
-        "name": realName,
         "username": username,
         "password": password,
         "authorities": [
@@ -30,7 +29,6 @@ const Signup =  () => {
           localStorage.setItem("tokenExpiration", expires);
           localStorage.setItem("username", username);
           localStorage.setItem("password,", password);
-          //document.cookie = `token=${result.access_token}; path=/; expires=${expires}; secure; HttpOnly; SameSite=Strict`;
           window.location.href = "/fetchData";
         })
         .catch((error) => {
@@ -47,12 +45,10 @@ const Signup =  () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    const newName = e.target.realname.value;
     const realUsername = e.target.username.value;
     const newPassword = e.target.password.value;
 
-    // Directly use newName, newEmail, and newPassword here
-    await registerUser(newName, realUsername, newPassword);
+    await registerUser( realUsername, newPassword);
   }
 
   
@@ -63,14 +59,10 @@ const Signup =  () => {
         <h2 className="text-[#EEEEEE] text-2xl mb-6">Sign Up</h2>
         <form onSubmit={handleRegister}>
           <div className="mb-4">
-            <label className="block text-[#EEEEEE] mb-2">Name</label>
-            <input required type="text" id="realname" className="w-full p-2 rounded bg-[#222831] text-[#EEEEEE]" />
+            <label className="block text-[#EEEEEE] mb-2">Username (Email)</label>
+            <input required type="email" id="username" className="w-full p-2 rounded bg-[#222831] text-[#EEEEEE]" />
           </div>
-          <div className="mb-4">
-            <label className="block text-[#EEEEEE] mb-2">Username</label>
-            <input required type="text" id="username" className="w-full p-2 rounded bg-[#222831] text-[#EEEEEE]" />
-          </div>
-          <div className="mb-4">
+          <div className="mb-6">
             <label className="block text-[#EEEEEE] mb-2">Password</label>
             <input required type="password" id="password" className="w-full p-2 rounded bg-[#222831] text-[#EEEEEE]" />
           </div>
