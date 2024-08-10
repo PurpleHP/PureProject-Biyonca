@@ -1,7 +1,12 @@
-import axios from "axios";
+import React from 'react';
+import CryptoJS from 'crypto-js';
+
 
 const Login = () => {
   async function loginUser(username, password) {
+    const key = import.meta.env.VITE_ENCRYPTION_KEY;
+    const encryptedPassword = CryptoJS.AES.encrypt(password, key).toString();
+
     try {
       const myHeaders = {
         "Content-Type": "application/json",
@@ -20,10 +25,11 @@ const Login = () => {
 
       const result = await response.json();
       const expires = new Date(Date.now().getTime() + 5000 * 60 * 1000).toUTCString(); // token expires in 50 minutes
-      localStorage.setItem("token", result.access_token);
+      const encrptedToken = CryptoJS.AES.encrypt(result.access_token, key).toString();
+      localStorage.setItem("token", encrptedToken);
       localStorage.setItem("tokenExpiration", expires);
       localStorage.setItem("username", username);
-      localStorage.setItem("password", password);
+      localStorage.setItem("password", encryptedPassword);
       window.location.href = "/fetchData"
     } catch (error) {
       console.error(error);

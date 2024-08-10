@@ -1,9 +1,19 @@
+import React from 'react';
+import CryptoJS from 'crypto-js';
+
 const Signup =  () => {
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 
   async function registerUser(username, password){ //Authority -> USER
+    const key = import.meta.env.VITE_ENCRYPTION_KEY;
+    if (!key) {
+      console.error("Encryption key is not defined");
+      return;
+    }
+    const encryptedPassword = CryptoJS.AES.encrypt(password, key).toString();
+
     try{
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
@@ -30,10 +40,12 @@ const Signup =  () => {
           let expirationDate = new Date()
           expirationDate.setTime(currentDate.getTime() +  (50 * 60 * 1000));
           console.log(expirationDate)
-          localStorage.setItem("token", result.access_token);
+          const encrptedToken = CryptoJS.AES.encrypt(result.access_token, key).toString();
+          console.log(result.access_token)
+          localStorage.setItem("token", encrptedToken);
           localStorage.setItem("tokenExpiration", expirationDate);
           localStorage.setItem("username", username);
-          localStorage.setItem("password", password);
+          localStorage.setItem("password", encryptedPassword);
           window.location.href = "/fetchData";
         })
         .catch((error) => {
