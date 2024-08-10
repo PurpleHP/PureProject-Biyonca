@@ -26,10 +26,12 @@ const Signup =  () => {
       fetch("http://localhost:8888/security/register", requestOptions)
         .then((response) => response.json())
         .then((result) => {
-          const expires = new Date(Date.now() + 10 * 1000).toUTCString(); //cookie expires in 50 minutes (3000)
-          console.log(expires);
+          let currentDate = new Date()
+          let expirationDate = new Date()
+          expirationDate.setTime(currentDate.getTime() +  (50 * 60 * 1000));
+          console.log(expirationDate)
           localStorage.setItem("token", result.access_token);
-          localStorage.setItem("tokenExpiration", expires);
+          localStorage.setItem("tokenExpiration", expirationDate);
           localStorage.setItem("username", username);
           localStorage.setItem("password", password);
           window.location.href = "/fetchData";

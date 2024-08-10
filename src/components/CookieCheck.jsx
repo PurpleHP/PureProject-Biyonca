@@ -1,10 +1,7 @@
 function checkCookieExpiration() {
     let cookieNotExpired = false;
-    const cookieValue = document.cookie
-        .split('; ')
-        .find(row => row.startsWith(cookieName + '='))
-        ?.split('=')[1];
-
+    const cookieValue = localStorage.getItem("tokenExpiration");
+    console.log(cookieValue);
     if (cookieValue) {
         const expirationDate = new Date(cookieValue);
         const currentDate = new Date();
@@ -14,6 +11,7 @@ function checkCookieExpiration() {
     else{
         cookieNotExpired = false;
     }
+    console.log(cookieNotExpired)
     return {cookieNotExpired}
 }
 
