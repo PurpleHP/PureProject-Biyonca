@@ -129,7 +129,9 @@ const FetchData = () => {
 
     <div className="bg-[#222831] min-h-screen flex flex-col w-full justify-start items-center overflow-y-auto">
     <div className="bg-[#222831] flex flex-row fixed items-center justify-center top-0 left-0 w-full z-50 p-4">
-    
+      <button className="m-2 font-bold text-[#EEEEEE] bg-[#31363F] shadow-2xl shadow-black rounded-lg p-4 hover:bg-[#292d35] hover:scale-105 transition-transform duration-300" onClick={fetchDataButton}>
+        Filter
+      </button>
       <button className="m-2 font-bold text-[#EEEEEE] bg-[#3D8B3D] shadow-2xl shadow-black rounded-lg p-4 hover:bg-[#2E6B2E] hover:scale-105 transition-transform duration-300" onClick={fetchDataButton}>
         View All Results
       </button>
