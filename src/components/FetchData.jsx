@@ -1,11 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import CryptoJS from 'crypto-js';
+import { Range } from 'react-range';
 
 
 const FetchData = () => {
+  const maxVal = 1000000;
+  const minVal = 1;
   const [allTestInfo, setAllTestInfo] = useState(null);
   const [isTokenExpired, setIsTokenExpired] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
+
+  // Slider ----------------------
+   const [values, setValues] = useState([minVal, maxVal]); // Initial range values
+
+  const handleApplyFilter = () => {
+    console.log('Applying filter with range:', values);
+    setShowFilter(false);
+  };
+
+  const handleInputChange = (index, value) => {
+    const newValue = Math.max(minVal, Math.min(maxVal, value)); // Ensure value is within range
+    const newValues = [...values];
+    newValues[index] = newValue;
+    setValues(newValues);
+  };
+    // Slider ----------------------
+
+  // Date Picker ----------------------
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+
+  const handleStartDateChange = (e) => {
+    const newStartDate = e.target.value;
+    setStartDate(newStartDate);
+    if (endDate && newStartDate > endDate) {
+      setEndDate(newStartDate);
+    }
+  };
+
+  const handleEndDateChange = (e) => {
+    const newEndDate = e.target.value;
+    setEndDate(newEndDate);
+    if (startDate && newEndDate < startDate) {
+      setStartDate(newEndDate);
+    }
+  };
+  // Date Picker ----------------------
+
 
   const decryptPassword = (encryptedPassword) => {
     const key = import.meta.env.VITE_ENCRYPTION_KEY;
@@ -125,11 +167,15 @@ const FetchData = () => {
     window.location.href = "/";
   };
 
+  const filterOptions = () => {
+    setShowFilter(true);
+  }
+
   return (
 
     <div className="bg-[#222831] min-h-screen flex flex-col w-full justify-start items-center overflow-y-auto">
     <div className="bg-[#222831] flex flex-row fixed items-center justify-center top-0 left-0 w-full z-50 p-4">
-      <button className="m-2 font-bold text-[#EEEEEE] bg-[#31363F] shadow-2xl shadow-black rounded-lg p-4 hover:bg-[#292d35] hover:scale-105 transition-transform duration-300" onClick={fetchDataButton}>
+      <button className="m-2 font-bold text-[#EEEEEE] bg-[#31363F] shadow-2xl shadow-black rounded-lg p-4 hover:bg-[#292d35] hover:scale-105 transition-transform duration-300" onClick={filterOptions}>
         Filter
       </button>
       <button className="m-2 font-bold text-[#EEEEEE] bg-[#3D8B3D] shadow-2xl shadow-black rounded-lg p-4 hover:bg-[#2E6B2E] hover:scale-105 transition-transform duration-300" onClick={fetchDataButton}>
@@ -164,6 +210,9 @@ const FetchData = () => {
         </div>
       ))}
       </div>
+
+      {/* Logout */}
+
       {showConfirmation && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-[#31363F] p-6 rounded-lg shadow-md">
@@ -188,8 +237,134 @@ const FetchData = () => {
         </div>
       )}
 
+      {/* Filter */}
+
+      {showFilter && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-[#31363F] p-6 rounded-lg shadow-md">
+            <div className="flex relative flex-col justify-center items-center text-center md:w-[50vw] w-[80vw] h-[60vh]">
+            <button className="absolute top-0 right-0 mt-2 ml-2 mb-2 font-bold text-[#EEEEEE] bg-[#D9534F] shadow-2xl shadow-black rounded-lg p-4 hover:bg-[#C14440] hover:scale-105 transition-transform duration-300" onClick={clearData}>
+              Cancel
+            </button>
+            <p className="text-[#EEEEEE] absolute font-bold mt-2 p-4 top-0 md:text-3xl text-2xl mb-12">Filter Options</p>
+              {/* Test Number */}
+              <div className="mb-4 mt-16 w-full">
+                <p className="text-[#EEEEEE] mb-4">Test Number</p>
+                <Range
+                  step={1}
+                  min={minVal}
+                  max={maxVal}
+                  values={values}
+                  onChange={(values) => setValues(values)}
+                  renderTrack={({ props, children }) => (
+                    <div
+                      {...props}
+                      style={{
+                        ...props.style,
+                        height: '8px',
+                        width: '100%',
+                        backgroundColor: '#ccc'
+                      }}
+                    >
+                      {children}
+                    </div>
+                  )}
+                  renderThumb={({ props, index }) => (
+                    <div
+                      {...props}
+                      style={{
+                        ...props.style,
+                        height: '24px',
+                        width: '24px',
+                        backgroundColor: index === 0 ? '#3D8B3D' : '#D9534F',
+                        borderRadius: '50%'
+                      }}
+                    />
+                  )}
+                />
+                <div className="flex justify-between mt-2">
+                  <div className="flex flex-col items-center">
+                    <label className="text-[#EEEEEE]">Min:</label>
+                    <input
+                      type="number"
+                      value={values[0]}
+                      min={minVal}
+                      max={maxVal}
+                      onChange={(e) => handleInputChange(0, Number(e.target.value))}
+                      className="p-2 rounded bg-[#EEEEEE] text-[#31363F] w-[2wv]"
+                    />
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <label className="text-[#EEEEEE]">Max:</label>
+                    <input
+                      type="number"
+                      value={values[1]}
+                      min={minVal}
+                      max={maxVal}
+                      onChange={(e) => handleInputChange(1, Number(e.target.value))}
+                      className="p-2 rounded bg-[#EEEEEE] text-[#31363F] w-[3wv]"
+                    />
+                  </div>
+                </div>
+              </div>
+              {/* Test Number */}
+
+              {/* Test Name */}
+              <div className="mb-4 w-full flex flex-row">
+                <div className="mb-4 w-full flex flex-col">
+                  <p className="text-[#EEEEEE] mb-4">Test Name</p>
+                  <input 
+                  id='testName'
+                  className="p-2 rounded bg-[#EEEEEE] text-[#31363F] mr-2 w-full" 
+                  placeholder='(Default: All)'
+                />
+                </div>
+                <div className="mb-4 w-full flex flex-col">
+                  <p className="text-[#EEEEEE] mb-4">Test Result</p>
+                 <input 
+                 id='testResult'
+                  className="p-2 rounded bg-[#EEEEEE] text-[#31363F] ml-2 w-full" 
+                  placeholder='(Default: All)'
+                />
+                </div>
+
+              </div>
+              {/* Test Name */}
+
+              {/* Date Picker */}
+              <div className="mb-4 w-full flex flex-col">
+                <p className="text-[#EEEEEE] mb-4">Date Range</p>
+                <div className="mb-4 w-full flex flex-row">
+                  
+                    <input 
+                      type="date"
+                      id="testStartDate"
+                      className="p-2 rounded bg-[#EEEEEE] text-[#31363F] w-full"
+                      value={startDate}
+                      onChange={handleStartDateChange}
+                      max={endDate}
+                    />
+                  <p className='text-[#EEEEEE] font-extrabold p-2'>-</p>
+                  <input 
+                    type="date"
+                    id="testEndDate"
+                    className="p-2 rounded bg-[#EEEEEE] text-[#31363F] w-full"
+                    value={endDate}
+                    onChange={handleEndDateChange}
+                    min={startDate}
+                  />
+                </div>
+              </div>
+              {/* Date Picker */}
+
+              <button className="m-2 font-bold text-[#EEEEEE] bg-[#3D8B3D] shadow-2xl shadow-black rounded-lg p-4 hover:bg-[#2E6B2E] hover:scale-105 transition-transform duration-300" onClick={handleApplyFilter}>
+                  View Results
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
-    
   );
 }
 
