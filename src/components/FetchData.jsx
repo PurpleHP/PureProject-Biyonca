@@ -15,7 +15,55 @@ const FetchData = () => {
    const [values, setValues] = useState([minVal, maxVal]); // Initial range values
 
   const handleApplyFilter = () => {
-    console.log('Applying filter with range:', values);
+    const testName = document.getElementById('testName').value;
+    const testResult = document.getElementById('testResult').value;
+    const testStartDate = document.getElementById('testStartDate').value;
+    const testEndDate = document.getElementById('testEndDate').value;
+
+    const token = decryptPassword(localStorage.getItem("token"));
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`); // Add Bearer token to the Authorization header
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow"
+    };
+
+    fetch("http://localhost:8888/v1/testInfo/find_all", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        const crucialInfo = result.map(info => ({
+          name: info.name,
+          created: info.created,
+          testNum: info.testNum,
+          result: info.result,
+
+        }));
+
+        const filteredInfo = crucialInfo.filter(info => {
+          if (testName !== "" && info.name !== testName) return false;
+          if (testResult !== "" && info.result !== testResult) return false;
+          if (testStartDate !== "" && info.created < new Date(testStartDate)) return false;
+          if (testEndDate !== "" && info.created > new Date(testEndDate)) return false;
+          if (info.testNum < values[0] || info.testNum > values[1]) return false;
+          if (info.created < testStartDate || info.created > testEndDate) return false;
+          console.log("Date:" ,info.created, "Start Date:", testStartDate, "End Date:", testEndDate);
+          return true;
+        });
+        if(filteredInfo.length === 0){
+          alert("NO TEST RESULTS FOUND!");
+          setAllTestInfo(crucialInfo);
+        }
+        else{
+          setAllTestInfo(filteredInfo);
+
+        }
+      })
+      .catch((error) => console.error(error));
+
     setShowFilter(false);
   };
 
@@ -243,7 +291,7 @@ const FetchData = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-[#31363F] p-6 rounded-lg shadow-md">
             <div className="flex relative flex-col justify-center items-center text-center md:w-[50vw] w-[80vw] h-[60vh]">
-            <button className="absolute top-0 right-0 mt-2 ml-2 mb-2 font-bold text-[#EEEEEE] bg-[#D9534F] shadow-2xl shadow-black rounded-lg p-4 hover:bg-[#C14440] hover:scale-105 transition-transform duration-300" onClick={clearData}>
+            <button className="absolute top-0 right-0 mt-2 ml-2 mb-2 font-bold text-[#EEEEEE] bg-[#D9534F] shadow-2xl shadow-black rounded-lg p-4 hover:bg-[#C14440] hover:scale-105 transition-transform duration-300" onClick={() => setShowFilter(false)}>
               Cancel
             </button>
             <p className="text-[#EEEEEE] absolute font-bold mt-2 p-4 top-0 md:text-3xl text-2xl mb-12">Filter Options</p>
