@@ -78,7 +78,7 @@ const Signup =  () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#222831]">
-      <div className="bg-[#31363F] p-8 rounded-lg shadow-md w-96">
+      <div className="bg-[#31363F] shadow-2xl shadow-black p-8 rounded-lg  w-96">
         <h2 className="text-[#EEEEEE] text-2xl mb-6">Sign Up</h2>
         <form onSubmit={handleRegister}>
           <div className="mb-4">
@@ -89,10 +89,10 @@ const Signup =  () => {
             <label className="block text-[#EEEEEE] mb-2">Password</label>
             <input required type="password" id="password" className="w-full p-2 rounded bg-[#222831] text-[#EEEEEE]" />
           </div>
-          <button type="submit" className="w-full bg-[#76ABAE] text-[#EEEEEE] p-2 rounded hover:bg-[#5A8A8C] hover:scale-105 transition-transform duration-300">Sign Up</button>
+          <button type="submit" className="w-full bg-[#76ABAE] shadow-2xl shadow-black text-[#EEEEEE] p-2 rounded hover:bg-[#5A8A8C] hover:scale-105 transition-transform duration-300">Sign Up</button>
         </form>
       </div>
-      <a href="login" className="text-[#EEEEEE] mt-4 bg-[#76ABAE] p-3 rounded-lg text-xl hover:bg-[#5A8A8C] hover:scale-125 transition-transform duration-300">Login</a>
+      <a href="login" className="text-[#EEEEEE] mt-8 shadow-2xl shadow-black  bg-[#76ABAE] p-3 rounded-lg text-xl hover:bg-[#5A8A8C] hover:scale-125 transition-transform duration-300">Login</a>
     </div>
   );
 }
