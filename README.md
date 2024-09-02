@@ -6,7 +6,7 @@
 > [Biyonca](http://localhost:5173) (http://localhost:5173) in local
 ****
 #### https://biyonca.vercel.app/
-> Main page. User can click login / sign up buttons.\
+> Main page. User can click login / sign up buttons.
 ****
 #### https://biyonca.vercel.app/login
 > User can login. The auth token, username and password will be encrpted and saved to localstorage to automatically refresh user's token by sending a login request with the decrpted values (should decrpt at backend)
